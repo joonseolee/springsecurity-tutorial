@@ -57,10 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .maximumSessions(1)
-                .maxSessionsPreventsLogin(false)
+                .maxSessionsPreventsLogin(false) // default value 가 false 인데 기능은 기존세션만료
                 .and()
                 .sessionFixation()
                 .changeSessionId(); // 기본값이 세션 자동 변경됨
-
     }
 }
