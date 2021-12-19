@@ -30,4 +30,9 @@ public class SecurityController {
     public String adminAll() {
         return "adminAll";
     }
+
+    @GetMapping("login")
+    public String login() {
+        return "login";
+    }
 }
