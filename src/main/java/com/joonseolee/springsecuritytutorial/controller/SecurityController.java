@@ -11,6 +11,11 @@ public class SecurityController {
         return "home";
     }
 
+    @GetMapping("/user")
+    public String user() {
+        return "user";
+    }
+
     @GetMapping("loginPage")
     public String loginPage() {
         return "loginPage";
