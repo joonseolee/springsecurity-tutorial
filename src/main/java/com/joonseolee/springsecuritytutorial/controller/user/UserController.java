@@ -22,12 +22,12 @@ public class UserController {
         return "/user/mypage";
     }
 
-    @GetMapping("/accounts")
+    @GetMapping("/users")
     public String createUser() {
         return "/user/login/register";
     }
 
-    @PostMapping("/accounts")
+    @PostMapping("/users")
     public String createUser(AccountDto accountDto) {
         accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         var account = accountMapper.toAccount(accountDto);

@@ -1,5 +1,6 @@
 package com.joonseolee.springsecuritytutorial.security.provider;
 
+import com.joonseolee.springsecuritytutorial.security.common.FormWebAuthenticationDetails;
 import com.joonseolee.springsecuritytutorial.security.service.AccountContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -29,12 +30,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("BadCredentialsException has occurred");
         }
 
-        var authenticationToken = new UsernamePasswordAuthenticationToken(
+        var formWebAuthenticationDetails = (FormWebAuthenticationDetails) authentication.getDetails();
+        String secretKey = formWebAuthenticationDetails.getSecretKey();
+        if (!"secret".equals(secretKey)) {
+//            throw new AuthenticationCredentialsNotFoundException("secretKey not found.");
+        }
+
+        return new UsernamePasswordAuthenticationToken(
                 accountContext.getAccount(),
                 null,
                 accountContext.getAuthorities());
-
-        return authenticationToken;
     }
 
     @Override
