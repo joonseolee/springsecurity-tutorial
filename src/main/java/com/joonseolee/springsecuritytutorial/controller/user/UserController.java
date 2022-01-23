@@ -1,7 +1,7 @@
 package com.joonseolee.springsecuritytutorial.controller.user;
 
 import com.joonseolee.springsecuritytutorial.domain.AccountDto;
-import com.joonseolee.springsecuritytutorial.mapper.UserMapper;
+import com.joonseolee.springsecuritytutorial.domain.AccountMapper;
 import com.joonseolee.springsecuritytutorial.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +15,7 @@ public class UserController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final UserMapper userMapper;
+    private final AccountMapper accountMapper;
 
     @GetMapping("/mypage")
     public String myPage() {
@@ -30,7 +30,7 @@ public class UserController {
     @PostMapping("/accounts")
     public String createUser(AccountDto accountDto) {
         accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        var account = userMapper.toAccount(accountDto);
+        var account = accountMapper.toAccount(accountDto);
         userService.createUser(account);
         return "redirect:/";
     }

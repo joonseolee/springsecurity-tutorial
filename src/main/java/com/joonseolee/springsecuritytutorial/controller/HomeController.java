@@ -18,11 +18,6 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping(value="/login")
-    public String login() throws Exception {
-        return "login";
-    }
-
     @GetMapping("/test")
     @ResponseBody
     public Object dfadsf() {
