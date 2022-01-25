@@ -1,6 +1,8 @@
 package com.joonseolee.springsecuritytutorial.security.configs;
 
+import com.joonseolee.springsecuritytutorial.security.common.AjaxLoginAuthenticationEntryPoint;
 import com.joonseolee.springsecuritytutorial.security.filter.AjaxLoginProcessingFilter;
+import com.joonseolee.springsecuritytutorial.security.handler.AjaxAccessDeniedHandler;
 import com.joonseolee.springsecuritytutorial.security.handler.AjaxAuthenticationFailureHandler;
 import com.joonseolee.springsecuritytutorial.security.handler.AjaxAuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -34,11 +37,16 @@ public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/api/**")
                 .authorizeRequests()
+                .antMatchers("/api/messages").hasRole("MANAGER")
                 .anyRequest().authenticated()
                 .and()
                 // UsernamePasswordAuthenticationFilter 필터앞에 필터를 추가한다.
                 .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 // 토큰검사를 위해 일시 비활성화
+                .exceptionHandling()
+                .authenticationEntryPoint(new AjaxLoginAuthenticationEntryPoint())
+                .accessDeniedHandler(ajaxAccessDeniedHandler())
+                .and()
                 .csrf().disable();
     }
 
@@ -60,5 +68,10 @@ public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationFailureHandler ajaxAuthenticationFailureHandler() {
         return new AjaxAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public AccessDeniedHandler ajaxAccessDeniedHandler() {
+        return new AjaxAccessDeniedHandler();
     }
 }
