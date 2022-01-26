@@ -1,15 +1,34 @@
 package com.joonseolee.springsecuritytutorial.domain;
 
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * spring bean 으로 등록하고싶다면 인자를 넣어준다.
  */
-@Mapper(componentModel = "spring")
+@Mapper(config = CommonMapper.class,
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@DecoratedWith(AccountMapperDecorator.class)
 public interface AccountMapper {
 
-//    @Mapping(target = "username", source = "username2")
+    @Mapping(target = "age", source = "age2")
+    @Mapping(target = "id", ignore = true)
     Account toAccount(AccountDto accountDto);
-//    @InheritInverseConfiguration
+
+    @InheritInverseConfiguration
     AccountDto toAccountDto(Account account);
+
+    @IterableMapping(numberFormat = "$#.00")
+    List<String> prices(List<Integer> prices);
+
+    @InheritInverseConfiguration
+    List<AccountDto> toAccountDtos(Stream<Account> accounts);
+
+    @ValueMapping(source = "EXTRA", target = "SPECIAL")
+    @ValueMapping(source = "STANDARD", target = "DEFAULT")
+    @ValueMapping(source = MappingConstants.NULL, target = "DEFAULT")
+    @ValueMapping(source = "NORMAL", target = MappingConstants.NULL)
+    ExternalOrderType toExternalOrderType(OrderType orderType);
 }

@@ -1,6 +1,6 @@
 package com.joonseolee.springsecuritytutorial.domain;
 
-import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Data
+@Getter
 public class Account {
 
     @Id
@@ -19,4 +19,16 @@ public class Account {
     private String email;
     private String age;
     private String role;
+
+    public Account() {}
+
+    @Default
+    public Account(Long id, String username, String password, String email, String age, String role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+        this.role = role;
+    }
 }

@@ -29,8 +29,12 @@ public class UserController {
 
     @PostMapping("/users")
     public String createUser(AccountDto accountDto) {
-        accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        var account = accountMapper.toAccount(accountDto);
+        var newAccountDto = new AccountDto(accountDto.getUsername(),
+                passwordEncoder.encode(accountDto.getPassword()),
+                accountDto.getEmail(),
+                accountDto.getAge2(),
+                accountDto.getRole());
+        var account = accountMapper.toAccount(newAccountDto);
         userService.createUser(account);
         return "redirect:/";
     }

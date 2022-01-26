@@ -17,3 +17,10 @@
     * 판단을 심사하는것
     * 권한부여에서 판단하는 자료는 위에서 말한 인증정보, 요청정보, 권한정보이다.
     * 결정방식은 3가지 - 접근허용(1), 접근금지(-1), 접근보류(0)
+    
+
+## Mapstruct 
+
+mapstruct 라이브러리를 쓸겸 이곳에 어쩌다보니 넣었다?  
+대부분 기능은 사용해봤고 다만 strategy, provider 직접 구현까지는 생략했음.  
+사용된 파일들의 위치는 `com.joonseolee.springsecuritytutorial.domain` 에서 확인할수있다.  
