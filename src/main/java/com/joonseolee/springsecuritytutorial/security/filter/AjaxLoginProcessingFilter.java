@@ -16,6 +16,9 @@ import java.io.IOException;
 
 public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
+    private static final String XML_HTTP_REQUEST = "XMLHttpRequest";
+    private static final String X_REQUESTED_WITH = "X-Requested-With";
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     public AjaxLoginProcessingFilter() {
@@ -40,6 +43,6 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
     }
 
     private boolean isAjax(HttpServletRequest request) {
-        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        return XML_HTTP_REQUEST.equals(request.getHeader(X_REQUESTED_WITH));
     }
 }
