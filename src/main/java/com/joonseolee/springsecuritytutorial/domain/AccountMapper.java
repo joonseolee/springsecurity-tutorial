@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 @DecoratedWith(AccountMapperDecorator.class)
 public interface AccountMapper {
 
-    @Mapping(target = "age", source = "age2")
+    @Mapping(target = "age", source = "age")
     @Mapping(target = "id", ignore = true)
     Account toAccount(AccountDto accountDto);
 

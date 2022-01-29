@@ -32,7 +32,7 @@ public class UserController {
         var newAccountDto = new AccountDto(accountDto.getUsername(),
                 passwordEncoder.encode(accountDto.getPassword()),
                 accountDto.getEmail(),
-                accountDto.getAge2(),
+                accountDto.getAge(),
                 accountDto.getRole());
         var account = accountMapper.toAccount(newAccountDto);
         userService.createUser(account);

@@ -1,24 +1,26 @@
 package com.joonseolee.springsecuritytutorial.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
+@Setter
 public class AccountDto {
 
     private String username;
     private String password;
     private String email;
-    private int age2;
+    private int age;
     private String role;
 
+    public AccountDto() {}
+
     @Default
-    public AccountDto(String username, String password, String email, int age2, String role) {
+    public AccountDto(String username, String password, String email, int age, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.age2 = age2;
+        this.age = age;
         this.role = role;
     }
 }
