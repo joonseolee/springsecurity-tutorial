@@ -24,3 +24,8 @@
 mapstruct 라이브러리를 쓸겸 이곳에 어쩌다보니 넣었다?  
 대부분 기능은 사용해봤고 다만 strategy, provider 직접 구현까지는 생략했음.  
 사용된 파일들의 위치는 `com.joonseolee.springsecuritytutorial.domain` 에서 확인할수있다.  
+
+## 인가 프로세스
+
+* UrlResourcesMapFactoryBean
+    * DB 로부터 얻은 권한/자원 정보를 ResourceMap 을 빈으로 생성해서 UrlFilterInvocationSecurityMetadataSource 에 전달.

@@ -15,8 +15,10 @@ public interface AccountMapper {
 
     @Mapping(target = "age", source = "age")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "userRoles", ignore = true)
     Account toAccount(AccountDto accountDto);
 
+    @Mapping(target = "role", ignore = true)
     @InheritInverseConfiguration
     AccountDto toAccountDto(Account account);
 
