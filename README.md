@@ -29,3 +29,11 @@ mapstruct 라이브러리를 쓸겸 이곳에 어쩌다보니 넣었다?
 
 * UrlResourcesMapFactoryBean
     * DB 로부터 얻은 권한/자원 정보를 ResourceMap 을 빈으로 생성해서 UrlFilterInvocationSecurityMetadataSource 에 전달.
+* Method 방식 - 아노테이션 권한 설정
+    * @PreAuthorize, @PostAuthroize
+        * SpEL 지원
+        * PrePostAnnotationSecurityMetadataSource 가 담당 
+    * @Secured, @RolesAllowed
+        * SpEL 미지원 
+        * SecuredAnnotationSecurityMetadataSource, Jsr250MethodSecurityMetadataSource 가 담당 
+    
