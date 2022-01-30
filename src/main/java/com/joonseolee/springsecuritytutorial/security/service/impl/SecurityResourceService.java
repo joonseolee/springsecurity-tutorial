@@ -1,6 +1,8 @@
 package com.joonseolee.springsecuritytutorial.security.service.impl;
 
+import com.joonseolee.springsecuritytutorial.domain.AccessIp;
 import com.joonseolee.springsecuritytutorial.domain.Resources;
+import com.joonseolee.springsecuritytutorial.repository.AccessIpRepository;
 import com.joonseolee.springsecuritytutorial.repository.ResourcesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.ConfigAttribute;
@@ -12,12 +14,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class SecurityResourceService {
 
     private final ResourcesRepository resourcesRepository;
+    private final AccessIpRepository accessIpRepository;
 
     public LinkedHashMap<RequestMatcher, List<ConfigAttribute>> getResourceList() {
         LinkedHashMap<RequestMatcher, List<ConfigAttribute>> result = new LinkedHashMap<>();
@@ -31,5 +35,11 @@ public class SecurityResourceService {
         });
 
         return result;
+    }
+
+    public List<String> getAccessIpList() {
+        return accessIpRepository.findAll().stream()
+                .map(AccessIp::getIpAddress)
+                .collect(Collectors.toList());
     }
 }

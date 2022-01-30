@@ -4,6 +4,7 @@ import com.joonseolee.springsecuritytutorial.security.factory.UrlResourcesMapFac
 import com.joonseolee.springsecuritytutorial.security.filter.PermitAllFilter;
 import com.joonseolee.springsecuritytutorial.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import com.joonseolee.springsecuritytutorial.security.service.impl.SecurityResourceService;
+import com.joonseolee.springsecuritytutorial.security.voter.IpAddressVoter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -95,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
         List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
+        accessDecisionVoters.add(new IpAddressVoter(securityResourceService));
         accessDecisionVoters.add(roleVoter());
 
         return accessDecisionVoters;
