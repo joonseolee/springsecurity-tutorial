@@ -1,6 +1,7 @@
 package com.joonseolee.springsecuritytutorial.security.configs;
 
 import com.joonseolee.springsecuritytutorial.security.factory.UrlResourcesMapFactoryBean;
+import com.joonseolee.springsecuritytutorial.security.filter.PermitAllFilter;
 import com.joonseolee.springsecuritytutorial.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import com.joonseolee.springsecuritytutorial.security.service.impl.SecurityResourceService;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AccessDeniedHandler accessDeniedHandler;
     private final SecurityResourceService securityResourceService;
 
+    private String[] permitAllResources = {"/", "/login", "user/login/**"};
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(customAuthenticationProvider);
@@ -75,12 +78,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public FilterSecurityInterceptor customFilterSecurityInterceptor() throws Exception {
-        var filterSecurityInterceptor = new FilterSecurityInterceptor();
-        filterSecurityInterceptor.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource());
-        filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased());
-        filterSecurityInterceptor.setAuthenticationManager(authenticationManagerBean());
-        return filterSecurityInterceptor;
+    public PermitAllFilter customFilterSecurityInterceptor() throws Exception {
+        var permitAllFilter = new PermitAllFilter(permitAllResources);
+        permitAllFilter.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource());
+        permitAllFilter.setAccessDecisionManager(affirmativeBased());
+        permitAllFilter.setAuthenticationManager(authenticationManagerBean());
+        return permitAllFilter;
     }
 
     private AccessDecisionManager affirmativeBased() {
