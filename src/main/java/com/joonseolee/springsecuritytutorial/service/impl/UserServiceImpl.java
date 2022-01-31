@@ -25,10 +25,10 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * ROLE_MANAGER 권한만 가지고있는 유저만 인가처리
+     * ROLE_USER 권한만 가지고있는 유저만 인가처리
      */
     @Override
-    @Secured("ROLE_MANAGER")
+    @Secured("ROLE_USER")
     public void order() {
         log.info("Hello here is the order method.");
     }
