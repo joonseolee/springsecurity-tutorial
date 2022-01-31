@@ -34,6 +34,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+// @Secured 이런 권한설정을 할때 꼭 아래 아노테이션을 적어줘야한다.
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @RequiredArgsConstructor
 @Order(1)

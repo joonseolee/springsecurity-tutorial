@@ -5,4 +5,6 @@ import com.joonseolee.springsecuritytutorial.domain.Account;
 public interface UserService {
 
     void createUser(Account account);
+
+    void order();
 }
