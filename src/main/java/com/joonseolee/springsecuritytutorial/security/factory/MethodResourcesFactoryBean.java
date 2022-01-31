@@ -13,6 +13,7 @@ public class MethodResourcesFactoryBean implements FactoryBean<LinkedHashMap<Str
 
     private final SecurityResourceService securityResourceService;
     private LinkedHashMap<String, List<ConfigAttribute>> resourceMap;
+    private final String resourceType;
 
     @Override
     public LinkedHashMap<String, List<ConfigAttribute>> getObject() throws Exception {
@@ -24,7 +25,11 @@ public class MethodResourcesFactoryBean implements FactoryBean<LinkedHashMap<Str
     }
 
     private void init() {
-        resourceMap = securityResourceService.getMethodResourceList();
+        if ("method".equals(resourceType)) {
+            resourceMap = securityResourceService.getMethodResourceList();
+        } else if ("pointcut".equals(resourceType)) {
+            resourceMap = securityResourceService.getPointcutResourceList();
+        }
     }
 
     @Override

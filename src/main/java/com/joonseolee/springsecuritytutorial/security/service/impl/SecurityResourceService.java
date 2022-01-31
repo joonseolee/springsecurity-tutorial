@@ -51,6 +51,20 @@ public class SecurityResourceService {
         return result;
     }
 
+    public LinkedHashMap<String, List<ConfigAttribute>> getPointcutResourceList() {
+        LinkedHashMap<String, List<ConfigAttribute>> result = new LinkedHashMap<>();
+        List<Resources> resourcesList = resourcesRepository.findAllPointcutResources();
+        resourcesList.forEach(it -> {
+            List<ConfigAttribute> configAttributes = new ArrayList<>();
+            it.getRoleSet().forEach(role -> {
+                configAttributes.add(new SecurityConfig(role.getRoleName()));
+            });
+            result.put(it.getResourceName(), configAttributes);
+        });
+
+        return result;
+    }
+
     public List<String> getAccessIpList() {
         return accessIpRepository.findAll().stream()
                 .map(AccessIp::getIpAddress)

@@ -1,6 +1,7 @@
 package com.joonseolee.springsecuritytutorial.security.configs;
 
 import com.joonseolee.springsecuritytutorial.security.factory.MethodResourcesFactoryBean;
+import com.joonseolee.springsecuritytutorial.security.processor.ProtectPointcutPostProcessor;
 import com.joonseolee.springsecuritytutorial.security.service.impl.SecurityResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,18 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Bean
     public MethodResourcesFactoryBean methodResourcesFactoryBean() {
-        return new MethodResourcesFactoryBean(securityResourceService);
+        return new MethodResourcesFactoryBean(securityResourceService, "method");
+    }
+
+    @Bean
+    public MethodResourcesFactoryBean pointcutResourcesFactoryBean() {
+        return new MethodResourcesFactoryBean(securityResourceService, "pointcut");
+    }
+
+    @Bean
+    public ProtectPointcutPostProcessor protectPointcutPostProcessor() throws Exception {
+        ProtectPointcutPostProcessor protectPointcutPostProcessor = new ProtectPointcutPostProcessor(mapBasedMethodSecurityMetadataSource());
+        protectPointcutPostProcessor.setPointcutMap(pointcutResourcesFactoryBean().getObject());
+        return protectPointcutPostProcessor;
     }
 }
