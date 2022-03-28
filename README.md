@@ -19,7 +19,7 @@
     * 결정방식은 3가지 - 접근허용(1), 접근금지(-1), 접근보류(0)
     
 
-## Mapstruct 
+## Mapstruct - etc
 
 mapstruct 라이브러리를 쓸겸 이곳에 어쩌다보니 넣었다?  
 대부분 기능은 사용해봤고 다만 strategy, provider 직접 구현까지는 생략했음.  
